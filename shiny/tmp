@@ -1,0 +1,3 @@
+      selectInput("filter",
+                  choices = sort(names(iris))[names(iris) != "Species"],
+                  selected = sort(names(iris))),
