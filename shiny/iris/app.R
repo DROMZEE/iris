@@ -1,7 +1,7 @@
 library(shiny)
-library(DT)
+library(shinythemes)
 
-ui <- fluidPage(
+ui <- fluidPage(theme = shinytheme("superhero"),
   titlePanel("Etude du dataset Iris"),
   
   sidebarLayout(
@@ -65,14 +65,13 @@ ui <- fluidPage(
       
       
     ),
-    
+      
     mainPanel(
       tabsetPanel(
         id = 'dataset',
         tabPanel("Plot",  plotOutput("Plot1")),
-        tabPanel("Table", DT::dataTableOutput("mytable")),
+        tabPanel("Table", shiny::dataTableOutput("mytable")),
         tabPanel("Calcul", textOutput("selected_var")),
-        
         textOutput("selected_var"),
         textOutput("min_max")
       )
@@ -110,10 +109,10 @@ server <- function(input, output) {
     
     
   })
-  output$mytable <- DT::renderDataTable({
-    DT::datatable(iris[, input$show_varsIris, drop = FALSE], options = list(lengthMenu = c(5, 30, 50), pageLength = 5))
-  })
-  
+  #output$mytable <- DT::renderDataTable({
+    #DT::datatable(iris[, input$show_varsIris, drop = FALSE], options = list(lengthMenu = c(5, 30, 50), pageLength = 5))
+  #})
+  output$mytable <- shiny::renderDataTable(iris[, input$show_varsIris, drop = FALSE], options = list(lengthMenu = c(5, 30, 50), pageLength = 5))
   
 }
 
